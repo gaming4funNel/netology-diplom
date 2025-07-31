@@ -249,7 +249,7 @@ Workflow:
 
 ![](img/5_actions_build_deploy_dockerhub_tag.png)
 
-![](img/img/5_actions_app_tag.png)
+![](img/5_actions_app_tag.png)
 
 <!-- Осталось настроить ci/cd систему для автоматической сборки docker image и деплоя приложения при изменении кода.
 
