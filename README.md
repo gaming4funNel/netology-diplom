@@ -29,11 +29,11 @@
 
 Структура проекта организована по каталогам:
 
-    [1_bucket] (https://github.com/gaming4funNel/netology-diplom/tree/main/1_bucket) — отвечает за создание сервисной учетной записи и бакета в Yandex Cloud.
+[1_bucket] (https://github.com/gaming4funNel/netology-diplom/tree/main/1_bucket) — отвечает за создание сервисной учетной записи и бакета в Yandex Cloud.
 
-    [2_infrastructure] (https://github.com/gaming4funNel/netology-diplom/tree/main/2_infrastructure) — выполняет развёртывание инфраструктуры и поднятие кластера Kubernetes.
+[2_infrastructure] (https://github.com/gaming4funNel/netology-diplom/tree/main/2_infrastructure) — выполняет развёртывание инфраструктуры и поднятие кластера Kubernetes.
 
-    [3_app] (https://github.com/gaming4funNel/netology-diplom/tree/main/3_app) — содержит код для деплоя приложения в кластер и настройки сущностей Ingress.
+[3_app] (https://github.com/gaming4funNel/netology-diplom/tree/main/3_app) — содержит код для деплоя приложения в кластер и настройки сущностей Ingress.
 
 Для инициализации Terraform и автоматического применения конфигураций используется следующая последовательность команд:
 
