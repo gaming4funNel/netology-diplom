@@ -12,4 +12,4 @@
 personal.auto.tfvars
 backend.auto.tfvars
 
-terraform.tfvars
+terraform.tfvars 
