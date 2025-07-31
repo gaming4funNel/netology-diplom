@@ -44,7 +44,7 @@ terraform apply
 
 После создания бакета в папке 1_bucket, в каталог 2_infrastructure автоматически экспортируются файлы backend.auto.tfvars и personal.auto.tfvars, содержащие параметры для использования бакета в качестве backend хранилища состояния и для подключения к Yandex Cloud. Эти файлы включены в .gitignore для исключения из системы контроля версий.
 
-![](img/img/1_terraform_bucket_apply.png)
+![](img/1_terraform_bucket_apply.png)
 
 Для развертывания инфраструктуры в папке 2_infrastructure выполняются команды:
 
