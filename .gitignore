@@ -1,1 +1,15 @@
-terraform/2_infrastructure/backend.auto.tfvars
+# Local .terraform directories and files
+**/.terraform/*
+.terraform*
+
+!.terraformrc
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+# own secret vars store.
+personal.auto.tfvars
+backend.auto.tfvars
+
+terraform.tfvars
