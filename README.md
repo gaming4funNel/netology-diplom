@@ -44,7 +44,7 @@ terraform apply
 
 После создания бакета в папке 1_bucket, в каталог 2_infrastructure автоматически экспортируются файлы backend.auto.tfvars и personal.auto.tfvars, содержащие параметры для использования бакета в качестве backend хранилища состояния и для подключения к Yandex Cloud. Эти файлы включены в .gitignore для исключения из системы контроля версий.
 
-![](1_terraform_bucket_apply.png)
+![](img/img/1_terraform_bucket_apply.png)
 
 Для развертывания инфраструктуры в папке 2_infrastructure выполняются команды:
 
@@ -52,17 +52,17 @@ terraform apply
 terraform init -backend-config=backend.auto.tfvars
 terraform apply
 ```
-![](1_terraform_infrastructure_apply.png)
+![](img/1_terraform_infrastructure_apply.png)
 
-![](1_terraform_infrastructure.png)
+![](img/1_terraform_infrastructure.png)
 
-![](1_terraform_infrastructure_apply_vm.png)
+![](img/1_terraform_infrastructure_apply_vm.png)
 
-![](1_terraform_infrastructure_k8s.png)
+![](img/1_terraform_infrastructure_k8s.png)
 
 Файл состояния (terraform.tfstate) для инфраструктуры хранится в бакете Yandex Cloud, что позволяет организовать удалённое и централизованное управление.
 
-![](1_terraform_infrastructure_tfstate.png)
+![](img/1_terraform_infrastructure_tfstate.png)
 
 <!-- Для начала необходимо подготовить облачную инфраструктуру в ЯО при помощи [Terraform](https://www.terraform.io/).
 
@@ -93,13 +93,13 @@ terraform apply
 
 Заранее создал резервную копию файла ~/.kube/config, так как планирую перезаписывать его напрямую через Terraform в пользовательскую директорию.
 
-![](2_terraform_kubeconfig.png)
+![](img/2_terraform_kubeconfig.png)
 
 ```
 kubectl get pods --all-namespaces
 ```
 
-![](2_kubectl.png)
+![](img/2_kubectl.png)
 
 <!-- На этом этапе необходимо создать [Kubernetes](https://kubernetes.io/ru/docs/concepts/overview/what-is-kubernetes/) кластер на базе предварительно созданной инфраструктуры.   Требуется обеспечить доступ к ресурсам из Интернета.
 
@@ -141,15 +141,15 @@ kubectl get pods --all-namespaces
 
 Репозиторий приложения https://github.com/gaming4funNel/nginx-app
 
-![](3_docker_build_run.png)
+![](img/3_docker_build_run.png)
 
 Залил образ в Dockerhub с тегом init https://hub.docker.com/r/gaming4funnel/nginx-app
 
-![](3_docker_pull_dockerhub.png)
+![](img/3_docker_pull_dockerhub.png)
 
 Развернул локально для теста
 
-![](3_docker_test_app.png)
+![](img/3_docker_test_app.png)
 
 ---
 ### Подготовка cистемы мониторинга и деплой приложения
@@ -168,7 +168,7 @@ helm repo update && \
 helm install prometheus prometheus-community/kube-prometheus-stack --namespace=myproject
 ```
 
-![](4_monitoring_chart.png)
+![](img/4_monitoring_chart.png)
 
 Helm-чарт для ингресса
 
@@ -178,11 +178,11 @@ helm repo update && \
 helm install ingress-nginx ingress-nginx/ingress-nginx --namespace=myproject
 ```
 
-![](4_ingress_chart.png)
+![](img/4_ingress_chart.png)
 
 Проверка установки
 
-![](4_check_services.png)
+![](img/4_check_services.png)
 
 Деплой приложения из образа, деплой ингресса и создание сервисной учетки для CI/CD GitHub Actions
 
@@ -192,19 +192,19 @@ kubectl apply -f ingress.yml
 kubectl apply -f sa_for_github.yml
 ```
 
-![](4_app_apply.png)
+![](img/4_app_apply.png)
 
 Зоны в DNS скорректированы на IP балансировщика
 
-![](4_dns_records.png)
+![](img/4_dns_records.png)
 
 Проверка приложения
 
-![](4_test_app.png)
+![](img/4_test_app.png)
 
 Проверка grafana
 
-![](4_test_grafana.png)
+![](img/4_test_grafana.png)
 
 <!-- Уже должны быть готовы конфигурации для автоматического создания облачной инфраструктуры и поднятия Kubernetes кластера.  
 Теперь необходимо подготовить конфигурационные файлы для настройки нашего Kubernetes кластера.
@@ -233,23 +233,23 @@ kubectl apply -f sa_for_github.yml
 
 Для обеспечения взаимодействия пайплайна с Kubernetes кластером потребуется создать конфигурационный файл для ранее созданного сервисного аккаунта и добавить его в секреты GitHub Actions. Также для работы пайплайна с репозиторием необходимо будет передать в секреты GitHub Actions учетные данные специально созданных токенов (DOCKERHUB_USERNAME и DOCKERHUB_TOKEN).
 
-![](5_creds_actions.png)
+![](img/5_creds_actions.png)
 
 Workflow:
 
 - при выполнении коммита в ветку main без указания тега, артефакт автоматически публикуется в DockerHub с тегом, сформированным по шаблону nightly-%d-%m-%Y-%H-%M-%S. Одновременно в индексном файле происходит замена строки BUILD на сгенерированный тег.
 
-![](5_actions_build_no_tag.png)
+![](img/5_actions_build_no_tag.png)
 
-![](5_actions_build_dockerhub_no_tag.png)
+![](img/5_actions_build_dockerhub_no_tag.png)
 
 - при выполнении коммита в ветку main с указанием тега, артефакт автоматически отправляется в DockerHub с указанным тегом, в индексном файле происходит замена строки BUILD на соответствующий тег, а также выполняется развертывание образа в кластере Kubernetes.
 
-![](5_actions_build_deploy_tag.png)
+![](img/5_actions_build_deploy_tag.png)
 
-![](5_actions_build_deploy_dockerhub_tag.png)
+![](img/5_actions_build_deploy_dockerhub_tag.png)
 
-![](5_actions_app_tag.png)
+![](img/img/5_actions_app_tag.png)
 
 <!-- Осталось настроить ci/cd систему для автоматической сборки docker image и деплоя приложения при изменении кода.
 
